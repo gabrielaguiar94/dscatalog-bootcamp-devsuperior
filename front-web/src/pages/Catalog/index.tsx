@@ -1,5 +1,6 @@
 import React from 'react';
-import './styles.scss'
+import ProductCard from './components/ProductCard';
+import './styles.scss';
 
 const Catalog = () => (
     <div className="catalog-container">
@@ -7,7 +8,17 @@ const Catalog = () => (
             Catálogo de Produtos
         </h1>
         <div className="catalog-products">
-            <h1>produto 1</h1>
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
         </div>
     </div>
 
