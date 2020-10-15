@@ -3,7 +3,7 @@ import { BrowserRouter , Switch , Route } from 'react-router-dom';
 import NavBar from './core/components/NavBar';
 import Admin from './pages/Admin';
 import Catalog from './pages/Catalog';
-import ProductDetails from './pages/Catalog/components/ProductCard/ProductDetails';
+import ProductDetails from './pages/Catalog/components/ProductDetails';
 import Home from './pages/Home';
 
 const Routes = () => (
