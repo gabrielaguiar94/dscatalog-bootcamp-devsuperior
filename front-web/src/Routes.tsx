@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter , Switch , Route, Redirect } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import NavBar from './core/components/NavBar';
 import Admin from './pages/Admin';
 import Catalog from './pages/Catalog';
@@ -8,7 +8,7 @@ import Home from './pages/Home';
 
 const Routes = () => (
     <BrowserRouter>
-        <NavBar/>
+        <NavBar />
         <Switch>
             <Route path="/" exact>
                 <Home />
@@ -19,11 +19,11 @@ const Routes = () => (
             <Route path="/products/:productId">
                 <ProductDetails />
             </Route>
+            <Redirect from="/admin" to="/admin/products" exact />
             <Route path="/admin">
-                <Redirect to="/admin/products"/>
                 <Admin />
             </Route>
-        </Switch>    
+        </Switch>
     </BrowserRouter>
 
 );
