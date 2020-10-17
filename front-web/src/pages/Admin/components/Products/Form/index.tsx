@@ -4,7 +4,7 @@ import './styles.scss'
 
 const Form = () => {
     return (
-        <BaseForm title="CADASTRAR UM PRODUTO" >
+        <BaseForm title="cadastrar um produto" >
             <div className="row">
                 <div className="col-6">
                     <input type="text" className="form-control" />
