@@ -8,6 +8,7 @@ type RequestParams = {
 }
 
 const BASE_URL = 'http://localhost:3000';
+/*const BASE_URL = 'https://gabrielaguiar-dscatalog.herokuapp.com';*/
 
 export const makeRequest = ({ method = 'GET', url, data, params }: RequestParams) => {
     return axios({
