@@ -22,7 +22,7 @@ const NavBar = () => (
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to="/admin/auth"  >
+                    <NavLink to="/admin/products"  >
                         ADMIN
                         </NavLink>
                 </li>
