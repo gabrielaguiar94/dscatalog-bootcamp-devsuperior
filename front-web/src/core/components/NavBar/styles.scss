@@ -2,7 +2,7 @@
     height: 70px;
     color: #FFF;
     align-items: center;
-    padding-left: 40px;
+    padding-right: 40px;
     margin-left: 0;
     margin-right: 0;
 }
@@ -12,12 +12,18 @@
 }
 
 .main-menu {
-    display: flex;
-    font-size: 18px;
-    width: 380px;
-    justify-content: space-between;
+    display: flex;    
+    justify-content: center;
     
-    a {
+    li:nth-child(2) {
+        margin-right: 85px;
+        margin-left: 85px;
+    }    
+  
+}
+
+.nav-link {
+        font-size: 18px;    
         font-style: normal;
         color: rgba(255,255,255,0.5);
 
@@ -29,5 +35,4 @@
         &:hover{
             color: #FFF;
         }
-    }
 }
