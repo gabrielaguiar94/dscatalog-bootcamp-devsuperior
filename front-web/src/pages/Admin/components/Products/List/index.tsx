@@ -4,10 +4,11 @@ import { makeRequest } from 'core/utils/request';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom'
 import Card from '../Card/';
+import CardLoader from '../Loaders/ProductCardLoader';
 
 const List = () => {
     const [productsResponse, setProductsResponse] = useState<ProductsResponse>();
-    //const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const [activePage, setActivePage] = useState(0);
 
     useEffect(() => {
@@ -18,11 +19,11 @@ const List = () => {
             orderBy: 'id'
 
         }
-       // setIsLoading(true);
+        setIsLoading(true);
         makeRequest({ url: '/products', params })
             .then(response => setProductsResponse(response.data))
             .finally(() => {
-                //setIsLoading(false);
+                setIsLoading(false);
             })
     }, [activePage]);
 
@@ -38,9 +39,11 @@ const List = () => {
                 ADICIONAR
             </button>
             <div className="admin-list-container">
-                {productsResponse?.content.map(product => (
-                    <Card product={product} key={product.id} />
-                ))}
+                {isLoading ? <CardLoader /> : (
+                    productsResponse?.content.map(product => (
+                        <Card product={product} key={product.id} />
+                    ))
+                )}
                 {productsResponse && (
                     <Pagination
                         totalPages={productsResponse.totalPages}

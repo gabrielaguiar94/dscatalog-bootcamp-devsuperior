@@ -2,10 +2,9 @@ import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import BaseForm from '../../BaseForm';
-import './styles.scss'
 import { makePrivateRequest, makeRequest } from 'core/utils/request';
 import { useHistory, useParams } from 'react-router-dom';
-
+import './styles.scss'
 
 type FormState = {
     name: string;
@@ -53,7 +52,7 @@ const Form = () => {
             })
     }
 
-    return (
+    return (        
         <form onSubmit={handleSubmit(onSubmit)}>
             <BaseForm
                 title={formTitle}
