@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ProducstResponse } from 'core/types/Product';
+import { ProductsResponse } from 'core/types/Product';
 import Pagination from 'core/components/Pagination';
 import { makeRequest } from 'core/utils/request';
 import ProductCard from './components/ProductCard';
@@ -8,7 +8,7 @@ import ProductCardLoader from './components/Loaders/ProductCardLoader';
 import './styles.scss';
 
 const Catalog = () => {
-    const [productsResponse, setProductsResponse] = useState<ProducstResponse>();
+    const [productsResponse, setProductsResponse] = useState<ProductsResponse>();
     const [isLoading, setIsLoading] = useState(false);
     const [activePage,setActivePage] = useState(0);
 
