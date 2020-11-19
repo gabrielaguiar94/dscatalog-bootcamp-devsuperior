@@ -1,8 +1,10 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 import BaseForm from '../../BaseForm';
 import './styles.scss'
 import { makePrivateRequest } from 'core/utils/request';
+import { useHistory } from 'react-router-dom';
 
 
 type FormState = {
@@ -15,10 +17,18 @@ type FormState = {
 
 const Form = () => {
     const { register, handleSubmit, errors } = useForm<FormState>();
+    const history = useHistory();
 
     const onSubmit = (data: FormState) => {
-        makePrivateRequest({ url: '/products', method: 'POST', data });
-        }
+        makePrivateRequest({ url: '/products', method: 'POST', data })
+            .then(() => {
+                toast.info('Produto salvo com sucesso!');
+                history.push('/admin/products');
+            })
+            .catch(() => {
+                toast.error('Erro ao salvar produto!');
+            })
+    }
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -29,8 +39,8 @@ const Form = () => {
                             <input
                                 ref={register({
                                     required: "Campo obrigatório",
-                                    minLength: { value:5, message: 'O campo deve ter no mínimo 5 caracteres'},
-                                    maxLength: { value:60, message: 'O campo deve ter no máximo 60 caracteres'}                                    
+                                    minLength: { value: 5, message: 'O campo deve ter no mínimo 5 caracteres' },
+                                    maxLength: { value: 60, message: 'O campo deve ter no máximo 60 caracteres' }
                                 })}
                                 name="name"
                                 type="text"
@@ -46,7 +56,7 @@ const Form = () => {
                         <div className="margin-bottom-30">
                             <input
                                 ref={register({
-                                   required: "Campo obrigatório"                                   
+                                    required: "Campo obrigatório"
                                 })}
                                 name="price"
                                 type="number"
