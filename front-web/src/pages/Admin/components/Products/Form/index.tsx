@@ -1,13 +1,17 @@
-import React, { useEffect } from 'react';
-import { useForm } from 'react-hook-form';
+import React, { useEffect, useState } from 'react';
+import { useForm, Controller } from 'react-hook-form';
 import { toast } from 'react-toastify';
+import Select from 'react-select';
 import BaseForm from '../../BaseForm';
 import { makePrivateRequest, makeRequest } from 'core/utils/request';
 import { useHistory, useParams } from 'react-router-dom';
+import { Category } from 'core/types/Product';
 import './styles.scss'
+
 
 type FormState = {
     name: string;
+    categories: Category[];
     price: string;
     description: string;
     imgUrl: string;
@@ -18,9 +22,11 @@ type ParamsType = {
 }
 
 const Form = () => {
-    const { register, handleSubmit, errors, setValue } = useForm<FormState>();
+    const { register, handleSubmit, errors, setValue, control } = useForm<FormState>();
     const history = useHistory();
     const { productId } = useParams<ParamsType>();
+    const [isLoadingCategories, setIsLoadingCategories] = useState(false);
+    const [categories, setCategories] = useState<Category[]>([]);
     const isEditing = productId !== 'create';
     const formTitle = isEditing ? "Editar produto" : "cadastrar um produto";
 
@@ -29,12 +35,22 @@ const Form = () => {
             makeRequest({ url: `/products/${productId}` })
                 .then(response => {
                     setValue('name', response.data.name);
+                    setValue('categories', response.data.categories);
                     setValue('price', response.data.price);
                     setValue('description', response.data.description);
                     setValue('imgUrl', response.data.imgUrl);
                 })
         }
     }, [productId, isEditing, setValue]);
+
+    useEffect(() => {
+        setIsLoadingCategories(true)
+        makeRequest({ url: '/categories' })
+            .then(response => setCategories(response.data.content))
+            .finally(() => {
+                setIsLoadingCategories(false);
+            })
+    }, []);
 
 
     const onSubmit = (data: FormState) => {
@@ -52,7 +68,7 @@ const Form = () => {
             })
     }
 
-    return (        
+    return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <BaseForm
                 title={formTitle}
@@ -74,6 +90,26 @@ const Form = () => {
                             {errors.name && (
                                 <div className="invalid-feedback d-block">
                                     {errors.name.message}
+                                </div>
+                            )}
+                        </div>
+                        <div className="margin-bottom-30">
+                            <Controller
+                                as={Select}
+                                name="categories"
+                                rules={{ required: true }}
+                                control={control}
+                                isLoading={isLoadingCategories}
+                                options={categories}
+                                getOptionLabel={(option: Category) => option.name}
+                                getOptionValue={(option: Category) => String(option.id)}
+                                classNamePrefix="categories-select"
+                                placeholder="Categorias"
+                                isMulti
+                            />
+                            {errors.categories && (
+                                <div className="invalid-feedback d-block">
+                                    Campo obrigatório
                                 </div>
                             )}
                         </div>
