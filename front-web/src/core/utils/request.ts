@@ -44,6 +44,9 @@ export const makePrivateRequest = ({ method = 'GET', url, data, params }: Reques
         'Authorization': `Bearer ${sessionData.access_token}`
     }
 
+    console.log(data);
+    
+
     return makeRequest({ method, url, data, params, headers });
 
 }
