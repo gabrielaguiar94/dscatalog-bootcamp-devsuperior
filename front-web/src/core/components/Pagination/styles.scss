@@ -1,18 +1,21 @@
 .pagination-container {
     display: flex;
-    justify-content: center;    
+    justify-content: center;
     align-items: center;
     margin-top: 40px;
+    a:focus {
+        outline: none;
+    }
 }
 
 .pagination-item {
     width: 40px;
-    height: 40px;    
+    height: 40px;
     background: #E1E1E1;
     border-radius: 50%;
     font-weight: bold;
     font-size: 18px;
-    line-height: 25px;    
+    line-height: 25px;
     letter-spacing: -0.015em;
     color: #FFF;
     display: flex;
@@ -20,9 +23,11 @@
     justify-content: center;
     cursor: pointer;
     margin-right: 10px;
-
-    &.active{
-        background: #407BFF ;
+    &.active {
+        background: #407BFF;
+    }
+    &:hover {
+        color: #FFF;
     }
 }
 
@@ -31,17 +36,21 @@
     margin-right: 25px;
 }
 
-.pagination-next {    
-    margin-left: 15px;        
+.pagination-next {
+    margin-left: 15px;
     cursor: pointer;
 }
 
 .page-active {
     cursor: pointer;
-    color: #407BFF ;
+    color: #407BFF;
 }
 
-.page-inactive {    
+.page-inactive {
     color: #E1E1E1;
     pointer-events: none;
+}
+
+.pagination {
+    align-items: center;
 }
