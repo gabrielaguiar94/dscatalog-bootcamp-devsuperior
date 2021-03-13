@@ -7,6 +7,7 @@ import { makePrivateRequest, makeRequest } from 'core/utils/request';
 import { useHistory, useParams } from 'react-router-dom';
 import { Category } from 'core/types/Product';
 import './styles.scss'
+import ImageUpload from '../ImageUpload';
 
 
 type FormState = {
@@ -27,6 +28,9 @@ const Form = () => {
     const { productId } = useParams<ParamsType>();
     const [isLoadingCategories, setIsLoadingCategories] = useState(false);
     const [categories, setCategories] = useState<Category[]>([]);
+    const [uploadedImgUrl, setUploadedImgUrl] = useState('');
+    const [productImgUrl, setProductImgUrl] = useState('');
+
     const isEditing = productId !== 'create';
     const formTitle = isEditing ? "Editar produto" : "cadastrar um produto";
 
@@ -38,7 +42,8 @@ const Form = () => {
                     setValue('categories', response.data.categories);
                     setValue('price', response.data.price);
                     setValue('description', response.data.description);
-                    setValue('imgUrl', response.data.imgUrl);
+                    setProductImgUrl(response.data.imgUrl);
+                    
                 })
         }
     }, [productId, isEditing, setValue]);
@@ -54,18 +59,28 @@ const Form = () => {
 
 
     const onSubmit = (data: FormState) => {
+        const payload = {
+            ...data,
+            imgUrl: uploadedImgUrl
+        }
+
         makePrivateRequest({
             url: isEditing ? `/products/${productId}` : '/products',
             method: isEditing ? 'PUT' : 'POST',
-            data
+            data: payload
         })
-            .then(() => {
+            .then(() => {                
                 toast.info('Produto salvo com sucesso!');
                 history.push('/admin/products');
             })
             .catch(() => {
                 toast.error('Erro ao salvar produto!');
             })
+    }
+
+    const onUploadSuccess = (imgUrl: string) => {
+        setUploadedImgUrl(imgUrl);
+
     }
 
     return (
@@ -101,6 +116,7 @@ const Form = () => {
                                 control={control}
                                 isLoading={isLoadingCategories}
                                 options={categories}
+                                defaultValue={categories}
                                 getOptionLabel={(option: Category) => option.name}
                                 getOptionValue={(option: Category) => String(option.id)}
                                 classNamePrefix="categories-select"
@@ -130,18 +146,10 @@ const Form = () => {
                             )}
                         </div>
                         <div className="margin-bottom-30">
-                            <input
-                                ref={register({ required: "Campo obrigatório" })}
-                                name="imgUrl"
-                                type="text"
-                                className="form-control input-base"
-                                placeholder="Imagem do Produto"
+                            <ImageUpload 
+                                onUploadSuccess={onUploadSuccess} 
+                                productImgUrl={productImgUrl}                                
                             />
-                            {errors.imgUrl && (
-                                <div className="invalid-feedback d-block">
-                                    {errors.imgUrl.message}
-                                </div>
-                            )}
                         </div>
                     </div>
                     <div className="col-6">
