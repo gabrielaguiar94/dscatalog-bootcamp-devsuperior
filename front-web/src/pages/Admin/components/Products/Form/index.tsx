@@ -6,15 +6,20 @@ import BaseForm from '../../BaseForm';
 import { makePrivateRequest, makeRequest } from 'core/utils/request';
 import { useHistory, useParams } from 'react-router-dom';
 import { Category } from 'core/types/Product';
-import './styles.scss'
 import ImageUpload from '../ImageUpload';
+import DescriptionField from './DescriptionField';
+import './styles.scss'
+import { convertToRaw, EditorState } from 'draft-js';
+import draftToHtml from 'draftjs-to-html';
+import {stateFromHTML} from 'draft-js-import-html';
 
 
-type FormState = {
+
+export type FormState = {
     name: string;
     categories: Category[];
     price: string;
-    description: string;
+    description: EditorState;
     imgUrl: string;
 }
 
@@ -38,12 +43,15 @@ const Form = () => {
         if (isEditing) {
             makeRequest({ url: `/products/${productId}` })
                 .then(response => {
+                    const contentState = stateFromHTML(response.data.description);
+                    const descriptionAsEditorState = EditorState.createWithContent(contentState);
+                    
                     setValue('name', response.data.name);
                     setValue('categories', response.data.categories);
-                    setValue('price', response.data.price);
-                    setValue('description', response.data.description);
+                    setValue('price', response.data.price);                    
                     setProductImgUrl(response.data.imgUrl);
-                    
+                    setValue('description', descriptionAsEditorState);
+
                 })
         }
     }, [productId, isEditing, setValue]);
@@ -57,10 +65,16 @@ const Form = () => {
             })
     }, []);
 
+    const getDescriptionFromEditor = (editorState: EditorState) => {
+        return draftToHtml(convertToRaw(editorState.getCurrentContent()));
+
+    }
+
 
     const onSubmit = (data: FormState) => {
         const payload = {
             ...data,
+            description: getDescriptionFromEditor(data.description),
             imgUrl: uploadedImgUrl || productImgUrl
         }
 
@@ -69,7 +83,7 @@ const Form = () => {
             method: isEditing ? 'PUT' : 'POST',
             data: payload
         })
-            .then(() => {                
+            .then(() => {
                 toast.info('Produto salvo com sucesso!');
                 history.push('/admin/products');
             })
@@ -116,11 +130,11 @@ const Form = () => {
                                 control={control}
                                 isLoading={isLoadingCategories}
                                 options={categories}
-                                defaultValue={categories}
                                 getOptionLabel={(option: Category) => option.name}
                                 getOptionValue={(option: Category) => String(option.id)}
                                 classNamePrefix="categories-select"
                                 placeholder="Categorias"
+                                defaultValue=""
                                 isMulti
                             />
                             {errors.categories && (
@@ -146,24 +160,17 @@ const Form = () => {
                             )}
                         </div>
                         <div className="margin-bottom-30">
-                            <ImageUpload 
-                                onUploadSuccess={onUploadSuccess} 
-                                productImgUrl={productImgUrl}                                
+                            <ImageUpload
+                                onUploadSuccess={onUploadSuccess}
+                                productImgUrl={productImgUrl}
                             />
                         </div>
                     </div>
                     <div className="col-6">
-                        <textarea
-                            ref={register({ required: "Campo obrigatório" })}
-                            name="description"
-                            className="form-control input-base"
-                            placeholder="Descrição"
-                            cols={30}
-                            rows={10}
-                        />
+                        <DescriptionField control={control} />
                         {errors.description && (
                             <div className="invalid-feedback d-block">
-                                {errors.description.message}
+                                {errors.description}
                             </div>
                         )}
 
