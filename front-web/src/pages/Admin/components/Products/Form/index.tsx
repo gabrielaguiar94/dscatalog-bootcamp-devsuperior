@@ -11,7 +11,7 @@ import DescriptionField from './DescriptionField';
 import './styles.scss'
 import { convertToRaw, EditorState } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
-import {stateFromHTML} from 'draft-js-import-html';
+import { stateFromHTML } from 'draft-js-import-html';
 
 
 
@@ -45,10 +45,10 @@ const Form = () => {
                 .then(response => {
                     const contentState = stateFromHTML(response.data.description);
                     const descriptionAsEditorState = EditorState.createWithContent(contentState);
-                    
+
                     setValue('name', response.data.name);
                     setValue('categories', response.data.categories);
-                    setValue('price', response.data.price);                    
+                    setValue('price', response.data.price);
                     setProductImgUrl(response.data.imgUrl);
                     setValue('description', descriptionAsEditorState);
 
@@ -102,7 +102,7 @@ const Form = () => {
             <BaseForm
                 title={formTitle}
             >
-                <div className="row">
+                <div className="product-form-container">
                     <div className="col-6">
                         <div className="margin-bottom-30">
                             <input
@@ -166,15 +166,14 @@ const Form = () => {
                             />
                         </div>
                     </div>
-                    <div className="col-6">
-                        <DescriptionField control={control} />
-                        {errors.description && (
-                            <div className="invalid-feedback d-block">
-                                {errors.description}
-                            </div>
-                        )}
-
-                    </div>
+                    {/* <div className="col-6"> */}
+                    <DescriptionField control={control} />
+                    {errors.description && (
+                        <div className="invalid-feedback d-block">
+                            {errors.description}
+                        </div>
+                    )}
+                    {/* </div> */}
                 </div>
             </BaseForm>
         </form>
