@@ -38,3 +38,7 @@ build/
 
 mvnw
 mvnw.cmd
+
+### SQL SCRIPTS ###
+
+*.sql
