@@ -123,7 +123,7 @@ public class ProductServiceTests {
 	}
 
 	@Test
-	public void deleteShouldThrowDataExceptionWhenIdNotExists() {
+	public void deleteShouldThrowDataExceptionWhenDepedentId() {
 
 		Assertions.assertThrows(DatabaseException.class, () -> {
 			service.delete(dependentId);
