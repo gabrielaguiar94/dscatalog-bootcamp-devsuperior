@@ -1,4 +1,7 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Dimensions } from 'react-native'
+
+const deviceWidth = Dimensions.get('window').width;
+
 import { color } from 'react-native-reanimated';
 
 const colors = {
@@ -69,7 +72,13 @@ const text = StyleSheet.create({
         fontSize: 16,
         fontWeight: '400',
         color: colors.mediumGray
-    }
+    },
+    loginTitle: {
+        fontSize: 30,
+        fontWeight: '400',
+        textTransform: 'uppercase',
+        marginBottom: 50,
+    },
 })
 
 const theme = StyleSheet.create({
@@ -229,8 +238,82 @@ const theme = StyleSheet.create({
         borderColor: colors.lightGray
     },
 
+    // LoginPage
 
+    loginCard: {
+        width: '100%',
+        height: '100%',
+        backgroundColor: colors.white,
+        borderRadius: 20,
+        shadowColor: colors.black,
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        alignItems: 'center',
+        justifyContent: 'center',
 
-})
+    },
 
-export { colors, theme, text };
+    form: {
+        marginVertical: 10,
+    },
+    toggle: {
+        margin: -40,
+    },
+    eyes: {
+
+    },
+    buttonTextContainer: {
+
+    },
+    passwordGroup: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginVertical: 25,
+
+    },
+    textInput: {
+        width: 290,
+        height: 50,
+        borderWidth: 1,
+        borderColor: colors.mediumGray,
+        borderRadius: 10,
+        padding: 10
+    }
+});
+
+const nav = StyleSheet.create({
+    leftText: {
+        color: colors.white,
+        fontWeight: 'bold',
+        marginLeft: 10,
+    },
+    drawer: {
+        marginRight: 20,
+    },
+    options: {
+        width: deviceWidth,
+        height: 120,
+        backgroundColor: colors.primary,
+        marginTop: 125,
+        marginRight: -20,
+        padding: 20,
+        justifyContent: 'space-between',
+    },
+
+    option: {
+        paddingVertical: 5
+    },
+    textOption: {
+        color: colors.white,
+        textTransform: 'uppercase'
+    },
+    textActive: {
+        fontWeight: 'bold'
+    }
+});
+
+export { colors, theme, text, nav };
