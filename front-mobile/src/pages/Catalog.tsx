@@ -6,10 +6,6 @@ import productImg from '../assets/produto.png';
 import { theme } from "../styles";
 import { api } from "../services";
 
-const products = [
-
-]
-
 const Catalog: React.FC = () => {
     const [search, setSearch] = useState('');
     const [products, setProducts] = useState([]);
