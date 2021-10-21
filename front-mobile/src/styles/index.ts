@@ -133,6 +133,11 @@ const theme = StyleSheet.create({
         flexDirection: 'row',
         marginTop: 10,
     },
+    productImage: {
+        width: 140,
+        height: 140,
+        margin: 16
+    },
 
     //Search Input
     inputContainer: {

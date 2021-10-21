@@ -13,7 +13,7 @@ interface ProductProps {
 const ProductCard: React.FC<ProductProps> = ({ id, imgUrl, name, price }) => {
     return (
         <TouchableOpacity style={theme.productCard}>
-            <Image source={imgUrl} />
+            <Image source={{ uri: imgUrl }} style={theme.productImage} />
             <View style={theme.productDescription}>
                 <Text style={text.productName}>{name}</Text>
                 <View style={theme.priceContainer}>
