@@ -1,6 +1,7 @@
 import { StyleSheet, Dimensions } from 'react-native'
 
 const deviceWidth = Dimensions.get('window').width;
+const deviceHeight = Dimensions.get('window').height;
 
 import { color } from 'react-native-reanimated';
 
@@ -81,7 +82,41 @@ const text = StyleSheet.create({
     },
     logoutText: {
         color: colors.white
-    }
+    },
+    addButtonText: {
+        fontSize: 16,
+        textTransform: 'uppercase',
+        color: colors.white,
+        fontWeight: 'bold'
+    },
+    editText: {
+        textTransform: "uppercase",
+        fontWeight: 'bold',
+        color: colors.mediumGray
+
+    },
+    deleteText: {
+        textTransform: "uppercase",
+        fontWeight: 'bold',
+        color: colors.red
+    },
+    uploadText: {
+        color: colors.white,
+        textTransform: 'uppercase',
+        fontWeight: 'bold'
+    },
+    fileSize: {
+        color: colors.primary,
+        fontSize: 10,
+        fontWeight: '300',
+        marginVertical: 5,
+        padding: 2
+    },
+    saveText: {
+        textTransform: "uppercase",
+        fontWeight: 'bold',
+        color: colors.white,
+    },
 })
 
 const theme = StyleSheet.create({
@@ -285,7 +320,136 @@ const theme = StyleSheet.create({
         borderColor: colors.mediumGray,
         borderRadius: 10,
         padding: 10
-    }
+    },
+    buttonContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-around'
+    },
+    deleteBtn: {
+        width: '48%',
+        height: 40,
+        borderWidth: 1,
+        borderColor: colors.red,
+        marginVertical: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 10
+    },
+    editBtn: {
+        width: '48%',
+        height: 40,
+        borderWidth: 1,
+        borderColor: colors.mediumGray,
+        marginVertical: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 10
+    },
+
+    //Admin Products Form
+    formContainer: {
+        width: deviceWidth,
+        padding: 20,
+
+    },
+    formCard: {
+        width: '100%',
+        height: '90%',
+        backgroundColor: colors.white,
+        borderRadius: 20,
+        padding: 20,
+        shadowColor: colors.black,
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        alignItems: 'center',
+        justifyContent: 'space-around'
+
+    },
+    modalContainer: {
+        width: deviceWidth,
+        height: deviceHeight,
+        backgroundColor: '#00000033',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    modalContent: {
+        width: 300,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: "50%",
+        backgroundColor: colors.white,
+        borderRadius: 20,
+        padding: 20,
+        shadowColor: colors.black,
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+    },
+    modalItem: {
+        width: "100%",
+        backgroundColor: colors.lightGray,
+        padding: 10,
+        marginVertical: 5,
+        borderRadius: 5,
+    },
+    formInput: {
+        width: 290,
+        height: 50,
+        borderWidth: 1,
+        borderColor: colors.mediumGray,
+        borderRadius: 10,
+        padding: 10,
+        marginVertical: 15
+
+    },
+    textArea: {
+        width: "100%",
+        height: 200,
+        borderWidth: 1,
+        borderColor: colors.mediumGray,
+        borderRadius: 10,
+        padding: 10,
+        marginVertical: 15,
+
+    },
+    selectInput: {
+        width: 290,
+        height: 50,
+        borderWidth: 1,
+        borderColor: colors.mediumGray,
+        borderRadius: 10,
+        padding: 10,
+        justifyContent: 'center'
+    },
+    uploadBtn: {
+        width: '100%',
+        height: 40,
+        backgroundColor: colors.mediumGray,
+        borderRadius: 5,
+        alignItems: 'center',
+        justifyContent: 'center'
+
+    },
+    saveBtn: {
+        width: '48%',
+        height: 40,
+        backgroundColor: colors.primary,
+        marginVertical: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 10
+
+    },
+
 });
 
 const nav = StyleSheet.create({
@@ -357,4 +521,20 @@ const tabbar = StyleSheet.create({
     },
 })
 
-export { colors, theme, text, nav, tabbar };
+const admin = StyleSheet.create({
+    container: {
+        padding: 10,
+        alignItems: 'center',
+    },
+    addButton: {
+        width: '100%',
+        height: 50,
+        backgroundColor: colors.primary,
+        margin: 10,
+        borderRadius: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+})
+
+export { colors, theme, text, nav, tabbar, admin };

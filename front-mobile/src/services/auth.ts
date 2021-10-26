@@ -50,5 +50,4 @@ export async function doLogout() {
     } catch (error) {
         console.warn(error);
     }
-
 }
