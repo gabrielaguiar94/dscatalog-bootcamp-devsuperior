@@ -1,4 +1,6 @@
 import axios from "axios";
+import { Platform } from "react-native";
+import mime from 'mime';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export const api = axios.create({
@@ -40,9 +42,58 @@ export async function deleteProduct(id: number) {
     });
 }
 
+export async function getProduct(id: number) {
+    const res = await api.get(`/products/${id}`)
+    return res;
+}
+
+export async function updateProduct(data: object) {
+    const authToken = await userToken();
+    const res = await api.put(`/products/${data.id}`, data, {
+        headers: {
+            Authorization: `Bearer ${authToken}`
+        },
+    });
+
+    return res;
+}
+
 export function getCategories() {
     const res = api.get(`/categories?direction=ASC&oderBy=name`);
 
     return res;
 }
 
+// Image Upload
+export async function uploadImage(image: string) {
+    if (!image) {
+        return;
+    }
+    const authToken = await userToken();
+    let data = new FormData();
+
+    if (Platform.OS === "android") {
+        const newImageUri = "file:///" + image.split("file:/").join("");
+
+        data.append("file", {
+            uri: newImageUri,
+            type: mime.getType(image),
+            name: newImageUri,
+        });
+
+    } else if (Platform.OS === "ios") {
+        data.append("file", {
+            uri: image,
+            name: image
+        });
+    }
+
+    const res = await api.post(`/products/image`, data, {
+        headers: {
+            Authorization: `Bearer ${authToken}`,
+            "Content-type": "multipart/form-data",
+        },
+    });
+
+    return res;
+}
