@@ -29,7 +29,7 @@ const Catalog: React.FC = () => {
     return (
         <ScrollView contentContainerStyle={theme.scrollContainer}>
             <SearchInput
-                placeholder="Digite o nome do Produto"
+                placeholder="Digite o nome da Produto"
                 search={search}
                 setSearch={setSearch} />
             {loading ? (<ActivityIndicator size="large" />) :

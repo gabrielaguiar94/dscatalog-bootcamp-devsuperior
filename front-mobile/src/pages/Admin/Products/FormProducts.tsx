@@ -169,12 +169,6 @@ const FormProducts: React.FC<FormProductProps> = (props) => {
                                         : product.categories}
                                 </Text>
                             </TouchableOpacity>
-                            {/* <TextInput
-                                placeholder="Preço"
-                                style={theme.formInput}
-                                value={product.price.toString()}
-                                onChangeText={(e) => setProduct({ ...product, price: parseInt(e) })}
-                            /> */}
                             <TextInputMask
                                 type={"money"}
                                 placeholder="Preço"

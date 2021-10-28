@@ -1,12 +1,12 @@
 import React from "react";
 
-import { View, Text, ImageSourcePropType, TouchableOpacity, Image } from 'react-native'
+import { View, Text, TouchableOpacity, Image } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { TextInputMask } from "react-native-masked-text";
 import { text, theme } from "../styles";
 
 interface ProductProps {
-    id: Number;
+    id: number;
     imgUrl: string;
     name: String;
     price: string;
@@ -53,7 +53,6 @@ const ProductCard: React.FC<ProductProps> = (
                         editable={false}
                         style={text.productPrice}
                     />
-                    {/* <Text style={text.productPrice}>{price}</Text> */}
                 </View>
 
                 {

@@ -28,6 +28,7 @@ const Products: React.FC<ProductProps> = (props) => {
         setProductId(id);
         setScreen("editProduct");
     }
+
     async function handleDelete(id: number) {
         setLoading(true);
         const res = await deleteProduct(id);

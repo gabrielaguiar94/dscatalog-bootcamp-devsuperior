@@ -117,6 +117,13 @@ const text = StyleSheet.create({
         fontWeight: 'bold',
         color: colors.white,
     },
+    //Categories
+    categoryName: {
+        fontSize: 16,
+        fontWeight: 'bold',
+    }
+
+
 })
 
 const theme = StyleSheet.create({
@@ -324,7 +331,7 @@ const theme = StyleSheet.create({
     buttonContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-around'
+        justifyContent: 'space-around',
     },
     deleteBtn: {
         width: '48%',
@@ -450,7 +457,78 @@ const theme = StyleSheet.create({
         borderRadius: 10
 
     },
+    // Categories Card
+    categoriesContainer: {
+        width: '100%',
+        flexDirection: 'row',
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'space-around'
+    },
 
+    categoriesCard: {
+        width: 355,
+        height: 100,
+        backgroundColor: colors.white,
+        borderRadius: 10,
+        shadowColor: colors.black,
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        marginVertical: 5,
+        alignItems: 'center',
+        paddingTop: 8,
+
+    },
+    deleteCardBtn: {
+        width: '100%',
+        height: 40,
+        borderWidth: 1,
+        padding: 10,
+        borderColor: colors.red,
+        borderRadius: 10
+    },
+    editCardBtn: {
+        width: '70%',
+        height: 40,
+        borderWidth: 1,
+        padding: 10,
+        borderColor: colors.mediumGray,
+        alignItems: 'center',
+        borderRadius: 10,
+        marginLeft: 50
+    },
+    saveCardBtn: {
+        width: '48%',
+        height: 40,
+        backgroundColor: colors.primary,
+        marginVertical: 10,
+        marginLeft: 5,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 10
+
+    },
+
+    //Admin Categories Form
+    formCategoryCard: {
+        width: '100%',
+        height: '90%',
+        backgroundColor: colors.white,
+        borderRadius: 20,
+        padding: 20,
+        shadowColor: colors.black,
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        alignItems: 'center',
+    }
 });
 
 const nav = StyleSheet.create({

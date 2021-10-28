@@ -4,3 +4,4 @@ export { default as ProductDetails } from './ProductDetails';
 export { default as Login } from './Login';
 //Telas administrativas
 export { default as Dashboard } from './Admin/Dashboard';
+export { default as Categories } from './Admin/Categories/Categories';

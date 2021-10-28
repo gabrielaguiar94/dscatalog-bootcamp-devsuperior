@@ -1,14 +1,14 @@
 {
   "expo": {
-    "name": "front-mobile",
-    "slug": "front-mobile",
+    "name": "DS Catalog",
+    "slug": "ds-catalog",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#407BEE"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -17,9 +17,13 @@
       "**/*"
     ],
     "ios": {
+      "bundleIdentifier": "com.devsuperior.dscatalog",
+      "buildNumber": "1.0.0",
       "supportsTablet": true
     },
     "android": {
+      "package": "com.devsuperior.dscatalog",
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
