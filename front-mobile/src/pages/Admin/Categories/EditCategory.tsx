@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Text, TouchableOpacity, View, Image, ActivityIndicator, Alert } from "react-native";
+import { Text, TouchableOpacity, View, Image, ActivityIndicator, Alert, TextInput } from "react-native";
 import { text, theme } from "../../../styles";
 import arrow from '../../../assets/leftarrow.png';
-import { TextInput } from "react-native-gesture-handler";
-import { getCategories, getCategory, updateCategory } from "../../../services";
+import { getCategory, updateCategory } from "../../../services";
 import Toast from "react-native-tiny-toast";
 
 interface EditCategoryProps {

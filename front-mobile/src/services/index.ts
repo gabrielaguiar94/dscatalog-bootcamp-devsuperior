@@ -100,6 +100,59 @@ export async function updateCategory(data: object) {
     return res;
 }
 
+export async function updateUser(data: object) {
+    const authToken = await userToken();
+    const res = await api.put(`/users/${data.id}`, data, {
+        headers: {
+            Authorization: `Bearer ${authToken}`
+        },
+    });
+
+    return res;
+}
+
+//Users
+
+export async function getUsers() {
+    const authToken = await userToken();
+    const res = await api.get(`users?page=0&linesPerPage=12&direction=ASC&orderBy=firstName`, {
+        headers: {
+            Authorization: `Bearer ${authToken}`
+        },
+    });
+    return res;
+}
+
+export async function getUser(id: number) {
+    const authToken = await userToken();
+    const res = await api.get(`/users/${id}`, {
+        headers: {
+            Authorization: `Bearer ${authToken}`
+        }
+    })
+    return res;
+}
+
+export async function createUser(data: object) {
+    const authToken = await userToken();
+    const res = api.post(`/users`, data, {
+        headers: {
+            Authorization: `Bearer ${authToken}`
+        }
+    });
+    return res;
+}
+
+export async function deleteUser(id: number) {
+    const authToken = await userToken();
+    const res = api.delete(`/users/${id}`, {
+        headers: {
+            Authorization: `Bearer ${authToken}`
+        }
+    });
+
+}
+
 // Image Upload
 export async function uploadImage(image: string) {
     if (!image) {

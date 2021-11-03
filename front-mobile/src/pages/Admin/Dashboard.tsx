@@ -12,13 +12,17 @@ import EditProducts from "./Products/EditProducts";
 import Categories from "./Categories/Categories";
 import EditCategory from "./Categories/EditCategory";
 import FormCategory from './Categories/FormCategory';
-import Users from "./Users";
+import Users from "./Users/Users";
+import Teste from "./Testes/Teste";
+import EditUser from "./Users/EditUser";
+import FormUser from "./Users/FormUser";
 
 
 const DashBoard: React.FC = () => {
     const [screen, setScreen] = useState("products");
     const [productId, setProductId] = useState(0);
     const [categoryId, setCategoryId] = useState(0);
+    const [userId, setUserId] = useState(0);
 
     return (
         <View>
@@ -41,7 +45,14 @@ const DashBoard: React.FC = () => {
             {screen === 'newCategory' && (
                 <FormCategory setScreen={setScreen} />
             )}
-            {screen === 'users' && <Users />}
+            {screen === 'users' && <Users setScreen={setScreen} setUserId={setUserId} />}
+            {screen === 'editUser' && (
+                <EditUser setScreen={setScreen} userId={userId} />
+            )}
+            {screen === 'newUser' && (
+                <FormUser setScreen={setScreen} />
+            )}
+            {screen === 'teste' && <Teste />}
         </View>
     )
 }

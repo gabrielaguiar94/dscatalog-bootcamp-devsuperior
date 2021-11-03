@@ -121,9 +121,21 @@ const text = StyleSheet.create({
     categoryName: {
         fontSize: 16,
         fontWeight: 'bold',
-    }
+    },
 
-
+    //Users
+    userName: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        width: 203,
+        justifyContent: 'space-around'
+    },
+    userEmail: {
+        fontSize: 14,
+        fontWeight: '500',
+        marginLeft: 3,
+        width: 200,
+    },
 })
 
 const theme = StyleSheet.create({
@@ -299,7 +311,6 @@ const theme = StyleSheet.create({
         shadowRadius: 3.84,
         alignItems: 'center',
         justifyContent: 'center',
-
     },
 
     form: {
@@ -319,6 +330,10 @@ const theme = StyleSheet.create({
         alignItems: 'center',
         marginVertical: 25,
 
+    },
+    passwordEditUser: {
+        flexDirection: 'row',
+        alignItems: 'center',
     },
     textInput: {
         width: 290,
@@ -457,7 +472,7 @@ const theme = StyleSheet.create({
         borderRadius: 10
 
     },
-    // Categories Card
+    // Categories
     categoriesContainer: {
         width: '100%',
         flexDirection: 'row',
@@ -465,7 +480,6 @@ const theme = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-around'
     },
-
     categoriesCard: {
         width: 355,
         height: 100,
@@ -481,7 +495,6 @@ const theme = StyleSheet.create({
         marginVertical: 5,
         alignItems: 'center',
         paddingTop: 8,
-
     },
     deleteCardBtn: {
         width: '100%',
@@ -512,8 +525,8 @@ const theme = StyleSheet.create({
         borderRadius: 10
 
     },
-
     //Admin Categories Form
+
     formCategoryCard: {
         width: '100%',
         height: '90%',
@@ -528,7 +541,49 @@ const theme = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
         alignItems: 'center',
-    }
+    },
+    // Users
+    usersContainer: {
+        width: '100%',
+        flexDirection: 'row',
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'space-around',
+    },
+    usersCard: {
+        width: 355,
+        height: 200,
+        backgroundColor: colors.white,
+        borderRadius: 10,
+        shadowColor: colors.black,
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        marginVertical: 5,
+        padding: 10,
+    },
+    deleteUserBtn: {
+        width: '100%',
+        height: 40,
+        borderWidth: 1,
+        padding: 10,
+        borderColor: colors.red,
+        borderRadius: 10
+    },
+    editUserBtn: {
+        width: '70%',
+        height: 40,
+        borderWidth: 1,
+        padding: 10,
+        borderColor: colors.mediumGray,
+        alignItems: 'center',
+        borderRadius: 10,
+        marginLeft: 50
+    },
+
 });
 
 const nav = StyleSheet.create({
