@@ -1,9 +1,9 @@
-import React from "react";
-
+import React, { useState } from "react";
+import Alert from 'react-native-awesome-alerts'
 import { View, Text, TouchableOpacity, Image } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { TextInputMask } from "react-native-masked-text";
-import { text, theme } from "../styles";
+import { text, textAlert, theme } from "../styles";
 
 interface ProductProps {
     id: number;
@@ -27,6 +27,7 @@ const ProductCard: React.FC<ProductProps> = (
     }
 ) => {
     const navigation = useNavigation();
+    const [showAlert, setShowAlert] = useState(false);
 
     return (
         <TouchableOpacity
@@ -60,10 +61,30 @@ const ProductCard: React.FC<ProductProps> = (
                         <View style={theme.buttonContainer}>
                             <TouchableOpacity
                                 style={theme.deleteBtn}
-                                onPress={() => handleDelete(id)}
+                                onPress={() => setShowAlert(true)}
                             >
                                 <Text style={text.deleteText}>Excluir</Text>
                             </TouchableOpacity>
+                            <Alert
+                                show={showAlert}
+                                showProgress={false}
+                                title={`Deseja realmente excluir o produto ${name} ?`}
+                                message={"Esta ação não poderá ser desfeita"}
+                                closeOnTouchOutside={true}
+                                closeOnHardwareBackPress={false}
+                                showCancelButton={true}
+                                showConfirmButton={true}
+                                cancelText="Não"
+                                confirmText="Sim"
+                                onCancelPressed={() => setShowAlert(!showAlert)}
+                                onConfirmPressed={() => {
+                                    handleDelete(id)
+                                }}
+                                titleStyle={textAlert.title}
+                                messageStyle={textAlert.message}
+                                cancelButtonStyle={textAlert.btnCancel}
+                                confirmButtonStyle={textAlert.btnConfirmDelete}
+                            />
                             <TouchableOpacity
                                 style={theme.editBtn}
                                 onPress={() => handleEdit(id)}

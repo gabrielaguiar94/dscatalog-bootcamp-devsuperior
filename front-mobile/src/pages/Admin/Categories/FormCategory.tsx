@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { ActivityIndicator, Alert, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, Text, TextInput, TouchableOpacity, View } from "react-native";
+import Alert from 'react-native-awesome-alerts'
 import Toast from "react-native-tiny-toast";
 import { createCategory } from "../../../services";
-import { text, theme } from "../../../styles";
+import { text, theme, textAlert } from "../../../styles";
 
 interface FormCategoriesProps {
     setScreen: Function;
@@ -11,6 +12,7 @@ interface FormCategoriesProps {
 const FormProduct: React.FC<FormCategoriesProps> = (props) => {
     const { setScreen } = props;
     const [loading, setLoading] = useState(false);
+    const [showAlert, setShowAlert] = useState(false);
     const [category, setCategory] = useState({
         name: ""
     });
@@ -50,23 +52,30 @@ const FormProduct: React.FC<FormCategoriesProps> = (props) => {
                             <View style={theme.buttonContainer}>
                                 <TouchableOpacity
                                     style={theme.deleteBtn}
-                                    onPress={() => Alert.alert(
-                                        "Deseja cancelar?",
-                                        "Os dados inseridos não serão salvos",
-                                        [
-                                            {
-                                                text: "Voltar",
-                                                style: "cancel",
-                                            },
-                                            {
-                                                text: "Confirmar",
-                                                onPress: () => setScreen('categories'),
-                                                style: 'default'
-                                            }
-                                        ])}
+                                    onPress={() => setShowAlert(true)}
                                 >
                                     <Text style={text.deleteText}>Cancelar</Text>
                                 </TouchableOpacity>
+                                <Alert
+                                    show={showAlert}
+                                    showProgress={false}
+                                    title={`Deseja cancelar ?`}
+                                    message={"Os dados digitados serão perdidos"}
+                                    closeOnTouchOutside={true}
+                                    closeOnHardwareBackPress={false}
+                                    showCancelButton={true}
+                                    showConfirmButton={true}
+                                    cancelText="Não, continuar editando"
+                                    confirmText="Sim, cancelar"
+                                    onCancelPressed={() => setShowAlert(!showAlert)}
+                                    onConfirmPressed={() => {
+                                        setScreen('categories')
+                                    }}
+                                    titleStyle={textAlert.title}
+                                    messageStyle={textAlert.message}
+                                    cancelButtonStyle={textAlert.btnCancel}
+                                    confirmButtonStyle={textAlert.btnConfirm}
+                                />
                                 <TouchableOpacity
                                     style={theme.saveCardBtn}
                                     onPress={() => handleSave()}

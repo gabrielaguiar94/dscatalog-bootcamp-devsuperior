@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, Text, TouchableOpacity, View, Image, TextInput, Alert } from "react-native";
+import { ActivityIndicator, Text, TouchableOpacity, View, Image, TextInput } from "react-native";
 import Toast from "react-native-tiny-toast";
+import Alert from 'react-native-awesome-alerts'
 import { getUser, updateUser } from "../../../services";
-import { theme, text } from "../../../styles";
+import { theme, text, textAlert } from "../../../styles";
 import { ScrollView } from "react-native-gesture-handler";
 
 import arrow from '../../../assets/leftarrow.png';
@@ -17,6 +18,7 @@ interface EditUserProps {
 const EdiUser: React.FC<EditUserProps> = (props) => {
     const { setScreen, userId } = props;
     const [loading, setLoading] = useState(false);
+    const [showAlert, setShowAlert] = useState(false);
     const [hidePassword, setHidePassword] = useState(true);
     const [user, setUser] = useState({
         firstName: "",
@@ -108,23 +110,30 @@ const EdiUser: React.FC<EditUserProps> = (props) => {
                             <View style={theme.buttonContainer}>
                                 <TouchableOpacity
                                     style={theme.deleteBtn}
-                                    onPress={() => Alert.alert(
-                                        "Deseja cancelar?",
-                                        "Os dados inseridos não serão salvos",
-                                        [
-                                            {
-                                                text: "Voltar",
-                                                style: "cancel",
-                                            },
-                                            {
-                                                text: "Confirmar",
-                                                onPress: () => setScreen('users'),
-                                                style: 'default'
-                                            }
-                                        ])}
+                                    onPress={() => setShowAlert(true)}
                                 >
                                     <Text style={text.deleteText}>Cancelar</Text>
                                 </TouchableOpacity>
+                                <Alert
+                                    show={showAlert}
+                                    showProgress={false}
+                                    title={`Cancelar edição do usuário ${user.firstName} ${user.lastName} ?`}
+                                    message={"Os dados digitados serão perdidos"}
+                                    closeOnTouchOutside={true}
+                                    closeOnHardwareBackPress={false}
+                                    showCancelButton={true}
+                                    showConfirmButton={true}
+                                    cancelText="Não, continuar editando"
+                                    confirmText="Sim, cancelar"
+                                    onCancelPressed={() => setShowAlert(!showAlert)}
+                                    onConfirmPressed={() => {
+                                        setScreen('products')
+                                    }}
+                                    titleStyle={textAlert.title}
+                                    messageStyle={textAlert.message}
+                                    cancelButtonStyle={textAlert.btnCancel}
+                                    confirmButtonStyle={textAlert.btnConfirm}
+                                />
                                 <TouchableOpacity
                                     style={theme.saveBtn}
                                     onPress={() => handleSave()}

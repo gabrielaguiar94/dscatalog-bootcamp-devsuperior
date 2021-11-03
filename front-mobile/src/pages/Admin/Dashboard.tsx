@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { View } from "react-native";
 import { TabBar } from "../../components";
 
-
 //Products
 import ListProducts from "./Products/ListProducts";
 import FormProducts from "./Products/FormProducts";
@@ -52,7 +51,7 @@ const DashBoard: React.FC = () => {
             {screen === 'newUser' && (
                 <FormUser setScreen={setScreen} />
             )}
-            {screen === 'teste' && <Teste />}
+            {/* {screen === 'teste' && <Teste />} */}
         </View>
     )
 }

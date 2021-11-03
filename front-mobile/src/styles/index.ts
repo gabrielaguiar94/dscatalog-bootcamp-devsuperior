@@ -671,4 +671,35 @@ const admin = StyleSheet.create({
     },
 })
 
-export { colors, theme, text, nav, tabbar, admin };
+const textAlert = StyleSheet.create({
+    title: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: colors.darkGray
+
+    },
+    message: {
+        fontSize: 16,
+        fontWeight: '500',
+        color: colors.mediumGray
+    },
+    btnCancel: {
+        backgroundColor: colors.mediumGray
+
+    },
+    btnConfirm: {
+        backgroundColor: colors.primary
+    },
+    btnConfirmDelete: {
+        backgroundColor: colors.red
+    },
+    btnTextCancel: {
+
+    },
+    btnTextCOnfirm: {
+
+    }
+
+})
+
+export { colors, theme, text, nav, tabbar, admin, textAlert };

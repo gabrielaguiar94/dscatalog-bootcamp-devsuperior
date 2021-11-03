@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import Toast from 'react-native-tiny-toast';
+import Toast from 'react-native-toast-message';
 
 import {
     View,
@@ -10,11 +10,11 @@ import {
     Image,
     Modal,
     TextInput,
-    ActivityIndicator,
-    Alert
+    ActivityIndicator
 } from "react-native";
 import * as ImagePicker from 'expo-image-picker';
 import { TextInputMask } from "react-native-masked-text";
+import Alert from 'react-native-awesome-alerts'
 import arrow from '../../../assets/leftarrow.png';
 import {
     updateProduct,
@@ -22,7 +22,7 @@ import {
     getCategories,
     uploadImage
 } from "../../../services";
-import { theme, text } from "../../../styles";
+import { theme, text, textAlert } from "../../../styles";
 
 interface EditProductProps {
     setScreen: Function;
@@ -34,6 +34,7 @@ const EditProducts: React.FC<EditProductProps> = (props) => {
     const [loading, setLoading] = useState(false);
     const [categories, setCategories] = useState([]);
     const [showCategories, setShowCategories] = useState(false);
+    const [showAlert, setShowAlert] = useState(false);
     const [product, setProduct] = useState({
         name: "",
         description: "",
@@ -47,7 +48,14 @@ const EditProducts: React.FC<EditProductProps> = (props) => {
         async () => {
             const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
             if (status != 'granted') {
-                Alert.alert("Precisamos ter acesso a biblioteca de imagens!");
+                <Alert
+                    show={showAlert}
+                    showProgress={false}
+                    title={"Erro ao acessar biblioteca de imagens"}
+                    message={"Precisamos acessar suas imagens para carregá-las"}
+                    closeOnTouchOutside={true}
+                    closeOnHardwareBackPress={false}
+                />
             }
         }
 
@@ -84,9 +92,17 @@ const EditProducts: React.FC<EditProductProps> = (props) => {
         try {
             await updateProduct(data);
             setScreen('products')
-            Toast.showSuccess('Produto atualizado com sucesso!!');
+            Toast.show({
+                type: 'success',
+                text1: 'Produto salvo com sucesso',
+                text2: `Produto ${product.name} criado! 😀`
+            })
         } catch (error) {
-            Toast.show('Erro ao salvar!');
+            Toast.show({
+                type: 'error',
+                text1: `Erro ao salvar o produto ${product.name}`,
+                text2: 'Verifique os dados digitados e tente novamente 😔',
+            })
         }
         setLoading(false);
 
@@ -201,23 +217,30 @@ const EditProducts: React.FC<EditProductProps> = (props) => {
                             <View style={theme.buttonContainer}>
                                 <TouchableOpacity
                                     style={theme.deleteBtn}
-                                    onPress={() => Alert.alert(
-                                        "Deseja cancelar?",
-                                        "Os dados inseridos não serão salvos",
-                                        [
-                                            {
-                                                text: "Voltar",
-                                                style: "cancel",
-                                            },
-                                            {
-                                                text: "Confirmar",
-                                                onPress: () => setScreen('products'),
-                                                style: 'default'
-                                            }
-                                        ])}
+                                    onPress={() => setShowAlert(true)}
                                 >
                                     <Text style={text.deleteText}>Cancelar</Text>
                                 </TouchableOpacity>
+                                <Alert
+                                    show={showAlert}
+                                    showProgress={false}
+                                    title={`Cancelar edição do produto ${product.name} ?`}
+                                    message={"Os dados digitados serão perdidos"}
+                                    closeOnTouchOutside={true}
+                                    closeOnHardwareBackPress={false}
+                                    showCancelButton={true}
+                                    showConfirmButton={true}
+                                    cancelText="Não, continuar editando"
+                                    confirmText="Sim, cancelar"
+                                    onCancelPressed={() => setShowAlert(!showAlert)}
+                                    onConfirmPressed={() => {
+                                        setScreen('products')
+                                    }}
+                                    titleStyle={textAlert.title}
+                                    messageStyle={textAlert.message}
+                                    cancelButtonStyle={textAlert.btnCancel}
+                                    confirmButtonStyle={textAlert.btnConfirm}
+                                />
                                 <TouchableOpacity
                                     style={theme.saveBtn}
                                     onPress={() => handleSave()}

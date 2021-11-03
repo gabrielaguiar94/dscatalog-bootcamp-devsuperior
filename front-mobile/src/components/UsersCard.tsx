@@ -1,8 +1,9 @@
 import React, { useState } from "react";
+import Alert from 'react-native-awesome-alerts'
 import { Text, View } from "react-native";
 import { ListItem } from 'react-native-elements'
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { text, theme } from "../styles";
+import { text, theme, textAlert } from "../styles";
 
 interface UsersProps {
     id: number;
@@ -20,6 +21,7 @@ interface UsersProps {
 const UsersCard: React.FC<UsersProps> = ({ id, firstName, lastName, email, roles, handleDelete, handleEdit }) => {
     const role = 'admin';
     const [expanded, setExpanded] = useState(false);
+    const [showAlert, setShowAlert] = useState(false);
 
     return (
         <View style={[theme.usersCard, expanded ? { height: 300 } : {}]}>
@@ -56,10 +58,30 @@ const UsersCard: React.FC<UsersProps> = ({ id, firstName, lastName, email, roles
                         <TouchableOpacity
                             style={theme.deleteUserBtn}
                             activeOpacity={0.8}
-                            onPress={() => handleDelete(id)}
+                            onPress={() => setShowAlert(true)}
                         >
                             <Text style={text.deleteText} > Excluir</Text>
                         </TouchableOpacity>
+                        <Alert
+                            show={showAlert}
+                            showProgress={false}
+                            title={`Deseja realmente excluir o usuário ${firstName} ${lastName} ?`}
+                            message={"Esta ação não poderá ser desfeita"}
+                            closeOnTouchOutside={true}
+                            closeOnHardwareBackPress={false}
+                            showCancelButton={true}
+                            showConfirmButton={true}
+                            cancelText="Não"
+                            confirmText="Sim"
+                            onCancelPressed={() => setShowAlert(!showAlert)}
+                            onConfirmPressed={() => {
+                                handleDelete(id)
+                            }}
+                            titleStyle={textAlert.title}
+                            messageStyle={textAlert.message}
+                            cancelButtonStyle={textAlert.btnCancel}
+                            confirmButtonStyle={textAlert.btnConfirmDelete}
+                        />
                         <TouchableOpacity
                             style={theme.editUserBtn}
                             activeOpacity={0.8}
