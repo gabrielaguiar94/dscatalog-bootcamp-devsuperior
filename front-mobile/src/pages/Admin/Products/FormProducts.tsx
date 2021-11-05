@@ -99,13 +99,13 @@ const FormProducts: React.FC<FormProductProps> = (props) => {
             setScreen('products');
             Toast.show({
                 type: 'success',
-                text1: 'Produto salvo com sucesso',
+                text1: 'Produto criado com sucesso',
                 text2: `Produto ${product.name} criado! 😀`
             })
         } catch (error) {
             Toast.show({
                 type: 'error',
-                text1: `Erro ao salvar o produto ${product.name}`,
+                text1: `Erro ao criar o produto ${product.name}`,
                 text2: 'Verifique os dados digitados e tente novamente 😔',
             })
         }

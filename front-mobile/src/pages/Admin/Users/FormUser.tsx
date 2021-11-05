@@ -8,7 +8,7 @@ import Alert from 'react-native-awesome-alerts'
 import arrow from '../../../assets/leftarrow.png';
 import eyesOpened from '../../../assets/eyes-opened.png';
 import eyesClosed from '../../../assets/eyes-closed.png';
-import Toast from 'react-native-tiny-toast';
+import Toast from 'react-native-toast-message';
 import { createUser } from '../../../services';
 
 interface FormUserProps {
@@ -47,9 +47,17 @@ const FormUser: React.FC<FormUserProps> = (props) => {
         try {
             await createUser(data);
             setScreen('users');
-            Toast.showSuccess('Usuário criado com sucesso!!');
+            Toast.show({
+                type: 'success',
+                text1: 'Usuário criado com sucesso',
+                text2: `Usuário ${user.firstName} ${user.lastName} criado! 😀`
+            })
         } catch (error) {
-            Toast.show('Erro ao salvar!');
+            Toast.show({
+                type: 'error',
+                text1: `Erro ao criar o usuário ${user.firstName} ${user.lastName}`,
+                text2: 'Verifique os dados digitados e tente novamente 😔',
+            })
         }
         setLoading(false);
     }
@@ -122,7 +130,7 @@ const FormUser: React.FC<FormUserProps> = (props) => {
                                         confirmText="Sim, cancelar"
                                         onCancelPressed={() => setShowAlert(!showAlert)}
                                         onConfirmPressed={() => {
-                                            setScreen('products')
+                                            setScreen('users')
                                         }}
                                         titleStyle={textAlert.title}
                                         messageStyle={textAlert.message}

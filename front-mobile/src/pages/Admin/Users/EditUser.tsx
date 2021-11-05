@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ActivityIndicator, Text, TouchableOpacity, View, Image, TextInput } from "react-native";
-import Toast from "react-native-tiny-toast";
+import Toast from 'react-native-toast-message';
 import Alert from 'react-native-awesome-alerts'
 import { getUser, updateUser } from "../../../services";
 import { theme, text, textAlert } from "../../../styles";
@@ -36,10 +36,18 @@ const EdiUser: React.FC<EditUserProps> = (props) => {
         try {
             await updateUser(data);
             setScreen('users')
-            Toast.showSuccess('Usuário(a) atualizado com sucesso!!')
+            Toast.show({
+                type: 'success',
+                text1: 'Usuário salvo com sucesso',
+                text2: `Usuário ${user.firstName} ${user.lastName} modificado! 😀`
+            })
         } catch (error) {
             console.warn(error)
-            Toast.show('Erro ao atualizar usuário(a)');
+            Toast.show({
+                type: 'error',
+                text1: `Erro ao salvar o usuário ${user.firstName} ${user.lastName}`,
+                text2: 'Verifique os dados digitados e tente novamente 😔',
+            })
         }
         setLoading(false);
     };
@@ -127,7 +135,7 @@ const EdiUser: React.FC<EditUserProps> = (props) => {
                                     confirmText="Sim, cancelar"
                                     onCancelPressed={() => setShowAlert(!showAlert)}
                                     onConfirmPressed={() => {
-                                        setScreen('products')
+                                        setScreen('users')
                                     }}
                                     titleStyle={textAlert.title}
                                     messageStyle={textAlert.message}

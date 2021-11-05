@@ -80,7 +80,7 @@ const Login: React.FC = () => {
                         onPress={() => handleLogin()}
                     >
                         <View style={theme.buttonTextContainer}>
-                            <Text style={text.primaryText}>Fazer Login</Text>
+                            <Text style={text.primaryText}>Entrar</Text>
                         </View>
                         <View style={theme.arrowContainer}>
                             <Image source={arrow} />

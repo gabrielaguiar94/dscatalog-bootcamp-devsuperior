@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { ActivityIndicator, Text, TextInput, TouchableOpacity, View } from "react-native";
 import Alert from 'react-native-awesome-alerts'
-import Toast from "react-native-tiny-toast";
+import Toast from 'react-native-toast-message';
 import { createCategory } from "../../../services";
 import { text, theme, textAlert } from "../../../styles";
 
@@ -30,9 +30,17 @@ const FormProduct: React.FC<FormCategoriesProps> = (props) => {
         try {
             await createCategory(data);
             setScreen('categories');
-            Toast.showSuccess('Categoria criada com sucesso!!');
+            Toast.show({
+                type: 'success',
+                text1: 'Categoria criada com sucesso',
+                text2: `Categoria ${category.name} criada! 😀`
+            })
         } catch (error) {
-            Toast.show('Erro ao salvar!');
+            Toast.show({
+                type: 'error',
+                text1: `Erro ao criar a categoria ${category.name}`,
+                text2: 'Verifique os dados digitados e tente novamente 😔',
+            })
         }
         setLoading(false);
     }

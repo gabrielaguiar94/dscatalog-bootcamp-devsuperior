@@ -4,7 +4,7 @@ import Alert from 'react-native-awesome-alerts'
 import { text, theme, textAlert } from "../../../styles";
 import arrow from '../../../assets/leftarrow.png';
 import { getCategory, updateCategory } from "../../../services";
-import Toast from "react-native-tiny-toast";
+import Toast from 'react-native-toast-message';
 
 interface EditCategoryProps {
     setScreen: Function;
@@ -27,10 +27,18 @@ const EditCategory: React.FC<EditCategoryProps> = (props) => {
         try {
             await updateCategory(data);
             setScreen('categories')
-            Toast.showSuccess('Categoria atualizada com sucesso!!')
+            Toast.show({
+                type: 'success',
+                text1: 'Categoria salva com sucesso',
+                text2: `Categoria ${category.name} modificada! 😀`
+            })
         } catch (error) {
             console.warn(error)
-            Toast.show('Erro ao atualizar categoria');
+            Toast.show({
+                type: 'error',
+                text1: `Erro ao salvar categoria ${category.name}`,
+                text2: 'Verifique os dados digitados e tente novamente 😔',
+            })
         }
         setLoading(false);
     };

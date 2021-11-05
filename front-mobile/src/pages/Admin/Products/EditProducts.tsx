@@ -95,7 +95,7 @@ const EditProducts: React.FC<EditProductProps> = (props) => {
             Toast.show({
                 type: 'success',
                 text1: 'Produto salvo com sucesso',
-                text2: `Produto ${product.name} criado! 😀`
+                text2: `Produto ${product.name} modificado! 😀`
             })
         } catch (error) {
             Toast.show({
